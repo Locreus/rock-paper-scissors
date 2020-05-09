@@ -6,7 +6,54 @@
   </head>
   <body>
     <script>
-
+	  function validChoice(choice){
+		if ( (choice === "rock") || (choice === "paper") || (choice === "scissors") ){
+		  return true;		
+		} 
+	  }
+	  function computerPlay(){
+		let choice = ["rock", "paper", "scissors"];
+		return choice[Math.floor(Math.random() * 3)];
+	  }
+	  function getPlayerChoice(){
+		let playerChoice = prompt("Rock, Paper or Scissors?").toLowerCase();
+		while(!validChoice(playerChoice)){
+		  console.log('${playerChoice} is not valid. Choose rock, paper or scissors.');
+		  playerChoice = prompt("Rock, Paper or Scissors?").toLowerCase();
+		}
+		return playerChoice;
+	  }
+	  function determineOutcome(c, p){
+		let outcome = "";
+		let win = false;
+		if (p === c){ console.log(`Cpu chose ${c}, game ends in a draw!`); return;}
+		if (p === "rock"){
+		  if (c === "scissors"){ outcome = `Cpu chose ${c}, You win!`; win = true; }
+		  else { outcome = `Cpu chose ${c}, You lost!`; }
+		}
+		else if (p === "paper"){
+		  if (c === "rock"){ outcome = `Cpu chose ${c}, You win!`; win = true; }
+		  else { outcome = `Cpu chose ${c}, You lost!`; }
+		}
+		else {
+		  if (c === "paper"){ outcome = `Cpu chose ${c}, You win!`; win = true; }
+		  else { outcome = `Cpu chose ${c}, You lost!`; }
+		}
+		console.log(outcome);
+		return win;
+	  }
+	  function play(){
+		let winCount = 0;
+		let gamesPlayed = 0;
+		while (gamesPlayed < 5){
+		  let cpu = computerPlay();
+		  let player = getPlayerChoice();
+		  let result = determineOutcome(cpu, player);
+		  if (result){ winCount++;}
+		  gamesPlayed++;
+		}
+		console.log(`You won ${winCount} games.`);
+	  }
 	</script>
   </body>
 </html>
